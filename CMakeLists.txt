@@ -5,7 +5,7 @@ set(CMAKE_C_COMPILER "gcc")
 set(CMAKE_C_STANDARD 11)
 
 add_compile_options(
-    -Os
+    -Os -s
 )
 
 project(brainfreak)

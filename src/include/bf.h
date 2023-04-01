@@ -3,7 +3,7 @@
 
 /* version */
 #define BF_RELEASE_VERSION "1"
-#define BF_MAJOR_VERSION "0"
+#define BF_MAJOR_VERSION "1"
 #define BF_MINOR_VERSION "0"
 
 #define BF_VERSION BF_RELEASE_VERSION "." BF_MAJOR_VERSION "." BF_MINOR_VERSION
@@ -54,9 +54,6 @@ void BF_close(BF_data *bf);
 unsigned int BF_do_string(BF_data *bf, char *str);
 /* execute code from a file */
 unsigned int BF_do_file(BF_data *bf, const char *file);
-
-/* process macros using user-defined macros and internal macros */
-void BF_process_macros(char **str /*, user defined macros*/);
 
 /* translate errors */
 char* BF_read_error(unsigned int errn);

@@ -78,8 +78,8 @@ unsigned int BF_do_string(BF_data *bf, char *str){
             case BF_LOOP_OPEN :
                 if(BF_stack_get(bf) == 0){
                     int depth = 1;
-                    while( depth > 0) {
-                        ++code;
+                    while( depth > 0 && *code > 0) {
+                        ++code; ++position;
                         if(*code == ']') depth--;
                         else if (*code == '[') depth++;
                     }
@@ -88,8 +88,8 @@ unsigned int BF_do_string(BF_data *bf, char *str){
             case BF_LOOP_CLOSE :
                 if(BF_stack_get(bf) != 0){
                     int depth = 1;
-                    while(depth > 0){
-                        --code;
+                    while(depth > 0 && *code > 0){
+                        --code; --position;
                         if(*code == '[') depth--;
                         else if (*code == ']') depth++;
                     }

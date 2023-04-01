@@ -3,7 +3,6 @@
 #include <signal.h>
 
 #include "opt.h"
-#include "config.h"
 
 #include "bf.h"
 
@@ -98,16 +97,34 @@ int main(int argc, char *argv[]){
             return 1;
         }
     } else if(argc <= optind) { // read for stdin
-        //TODO
+        puts(BF_VERSION_NAME);
+        char buffer[1024];
+        char *msg;
+        
+        if(bf->bytes == 1) msg = "array[%d] = unsigned(%hhu) signed(%ld)\n";
+        else if(bf->bytes == 2) msg = "array[%d] = unsigned(%u) signed(%ld)\n";
+        else if(bf->bytes == 4) msg = "array[%d] = unsigned(%hu) signed(%ld)\n";
+        else if(bf->bytes == 8) msg = "array[%d] = unsigned(%lu) signed(%ld)\n";
+
+        while(1){
+            printf("> ");
+            fgets(buffer, 1024, stdin);
+            
+            res = BF_do_string(bf, buffer);
+
+            printf(msg, BF_stackptr_get(bf), (unsigned long)BF_stack_get(bf), BF_stack_get(bf));
+        }
     } else { // read the given file
         char *file = argv[optind];
         res = BF_do_file(bf, file);
+        printf("%d, %d, %d\n", BF_stackptr_get(bf), bf->size, bf->bytes);
         if(res > 0){
             printf("An error occured : %s\n", BF_read_error(res));
             BF_close(bf);
             return 1;
         }
     }
+
     BF_close(bf);
     return 0;
 }
