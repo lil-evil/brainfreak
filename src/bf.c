@@ -38,12 +38,11 @@ void BF_close(BF_data *bf){
 }
 
 /* parse a string and execute it*/
-unsigned int BF_do_string(BF_data *bf, char *str){
+unsigned int BF_do_string(BF_data *bf, char *code){
     int line = 0, position = 0;
     unsigned int res = BF_OK;
 
     bf->state = 'c';
-    char *code = str;
     while (*code > 0) {
         switch (*code) {
             case BF_PTR_INCR : 
@@ -126,10 +125,13 @@ unsigned int BF_do_file(BF_data *bf, const char *file){
     long size = ftell(fp);
     fseek(fp, 0, SEEK_SET);
 
-    char buffer[size];
+    char buffer[size+1] = {};
 
     size_t byte_read = fread(&buffer, sizeof(char), size, fp);
     fclose(fp);
+
+    // force a null char to prevent segfault
+    buffer[size] = '\0';
 
     unsigned int res = BF_do_string(bf, buffer);
     return res;

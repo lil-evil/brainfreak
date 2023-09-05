@@ -51,7 +51,7 @@ BF_data *BF_new(size_t size, size_t bytes);
 void BF_close(BF_data *bf);
 
 /* parse a string and execute it*/
-unsigned int BF_do_string(BF_data *bf, char *str);
+unsigned int BF_do_string(BF_data *bf, char *code);
 /* execute code from a file */
 unsigned int BF_do_file(BF_data *bf, const char *file);
 
