@@ -102,8 +102,8 @@ int main(int argc, char *argv[]){
         char *msg;
         
         if(bf->bytes == 1) msg = "array[%d] = unsigned(%hhu) signed(%ld)\n";
-        else if(bf->bytes == 2) msg = "array[%d] = unsigned(%u) signed(%ld)\n";
-        else if(bf->bytes == 4) msg = "array[%d] = unsigned(%hu) signed(%ld)\n";
+        else if(bf->bytes == 2) msg = "array[%d] = unsigned(%hu) signed(%ld)\n";
+        else if(bf->bytes == 4) msg = "array[%d] = unsigned(%u) signed(%ld)\n";
         else if(bf->bytes == 8) msg = "array[%d] = unsigned(%lu) signed(%ld)\n";
 
         while(1){
