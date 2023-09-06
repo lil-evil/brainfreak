@@ -4,3 +4,6 @@
 # compilation generated folders
 /out
 /build
+
+# experiments
+x-*
