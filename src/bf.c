@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "bf.h"
-#include "bf_error.h"
+#include "brainfreak/bf.h"
+#include "brainfreak/bf_error.h"
 
 
 /* creation of the interpreter */
@@ -12,7 +12,7 @@ BF_data *BF_new(size_t size, size_t bytes){
     bf->ptr = 0;
     bf->errn = BF_OK;
 
-    if(!(bytes & (bytes - 1)) == 0 && bytes != 0){bf->errn = BF_ERR_INVALID_BYTE; return bf;}
+    if((bytes & (bytes - 1)) != 0 && bytes != 0){bf->errn = BF_ERR_INVALID_BYTE; return bf;}
     if(size > BF_MAX_SIZE){bf->errn = BF_ERR_MAX_SIZE_EXCEED; return bf;}
     if(size < BF_MIN_SIZE){bf->errn = BF_ERR_MIN_SIZE_EXCEED; return bf;}
     if(bytes > BF_MAX_BYTES){bf->errn = BF_ERR_MAX_BYTE_EXCEED; return bf;}
@@ -125,7 +125,7 @@ unsigned int BF_do_file(BF_data *bf, const char *file){
     long size = ftell(fp);
     fseek(fp, 0, SEEK_SET);
 
-    char buffer[size+1] = {};
+    char buffer[size+1];
 
     size_t byte_read = fread(&buffer, sizeof(char), size, fp);
     fclose(fp);
@@ -280,6 +280,7 @@ long BF_stack_get(BF_data *bf){
     } else if(bf->bytes == 8){
         return *((long*)bf->stack + bf->ptr);        
     }
+    return -1; /* should not happen :| */
 }
 
 /* get the stack value at n */
@@ -297,6 +298,7 @@ long BF_stack_get_at(BF_data *bf, size_t n){
     } else if(bf->bytes == 8){
         return *((long*)bf->stack + n);        
     }
+    return -1; /* should not happen :| */
 }
 
 /* translate errors */

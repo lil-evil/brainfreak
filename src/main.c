@@ -4,7 +4,7 @@
 
 #include "opt.h"
 
-#include "bf.h"
+#include "brainfreak/bf.h"
 
 static BF_data *bf;
 void handle_signal(int sig){
