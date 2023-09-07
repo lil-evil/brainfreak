@@ -31,7 +31,7 @@ ifeq ($(detected_OS),Windows)
 	SHARED_NAME=lib${PROJECT}.dll
 	STATIC_NAME=lib${PROJECT}.lib
 else ifeq ($(detected_OS),Darwin)
-	EXE_NAME=${PROJECT}.exe
+	EXE_NAME=${PROJECT}
 	SHARED_NAME=lib${PROJECT}.dylib
 	STATIC_NAME=lib${PROJECT}.a
 else
