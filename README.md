@@ -32,22 +32,21 @@ To explain the various options:
 - `-b <byte>` : The array used by Brainf*ck programms have a fixed size. When using this option, you can change this size. It default use a value of `1` byte.
 > Note 1 : A valid byte is either 1, 2, 4 or 8. Greater values are not yet supported.<br>
 > Note 2 : Bigger the byte is, bigger the number stored will be. With 1 byte, the number goes from -128 to 127 or 0 to 255.
-- `-e <string>` : The default behavior of the cli is to read and execute the given file (e.g. : `brainfreak file.bf`), but with the -e option, it execute the given `string` the exit.
+- `-e <string>` : The default behavior of the cli is to read and execute the given file (e.g. : `brainfreak file.bf`), but with the -e option, it execute the given `string` then exit.
 ## C API
 The interpreter include a C API made for integration into existing project. It follow the C API of the lua iterpreter, example :
  
 ```c
 #include <stdio.h>
 
-#include <bf.h>
-#include <bf_error.h>
+#include <brainfreak/bf.h>
 
 char *bf_str = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.";
 
 int main(){
     BF_data *bf = BF_new(BF_DEFAULT_SIZE, BF_DEFAULT_BYTES);
 
-    puts("Executing a bf string : \n")
+    puts("Executing a bf string : ");
     unsigned int res = BF_do_string(bf, bf_str);
 
     if(res != BF_OK){
